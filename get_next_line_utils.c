@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:11 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/11/26 12:38:26 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/11/27 12:06:13 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	size_t	length;
 
 	length = 0;
+	if (!str)
+		return (0);
 	while (str[length])
 		length++;
 	return (length);
@@ -65,24 +67,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (str);
 }
 
-char	*ft_strdup(const char *s)
-{
-	char	*ptr;
-	size_t	count;
-
-	count = 0;
-	ptr = (char *)malloc((ft_strlen((char *)s) + 1) * sizeof(char));
-	if (!ptr)
-		return (NULL);
-	while (count < ft_strlen((char *)s))
-	{
-		ptr[count] = s[count];
-		count++;
-	}
-	ptr[count] = '\0';
-	return (ptr);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
@@ -90,8 +74,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	s1len;
 	size_t	s2len;
 
-	if (!s1 || !s2)
-		return (NULL);
 	s1len = ft_strlen(s1);
 	s2len = ft_strlen(s2);
 	str = (char *)malloc((s1len + s2len + 1) * sizeof(char));
@@ -108,4 +90,28 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	str[count] = '\0';
 	return (str);
+}
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	size_t		count;
+	char		*ndst;
+	const char	*nsrc;
+
+	if (dst == src || !len)
+		return (dst);
+	count = 0;
+	ndst = (char *)dst;
+	nsrc = (const char *)src;
+	if (src > dst)
+	{
+		while (count++ < len)
+			ndst[count - 1] = nsrc[count - 1];
+	}
+	else
+	{
+		while (len--)
+			ndst[len] = nsrc[len];
+	}
+	return (dst);
 }
