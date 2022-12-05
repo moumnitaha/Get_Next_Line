@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:08 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/11/27 12:38:06 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/05 18:32:05 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_hasnewline(char *str)
 	return (-1);
 }
 
-char	*fixline(char *buff)
+char	*fix_line(char *buff)
 {
 	char	*line;
 	int		nlindex;
@@ -37,6 +37,8 @@ char	*fixline(char *buff)
 		return (buff);
 	nlindex = ft_hasnewline(buff);
 	line = (char *)malloc(nlindex + 2);
+	if (!line)
+		return (NULL);
 	ft_memmove(line, buff, nlindex);
 	line[nlindex] = '\n';
 	line[nlindex + 1] = '\0';
@@ -45,19 +47,21 @@ char	*fixline(char *buff)
 
 char	*fix_buff(char *buff)
 {
-	int		index;
-	size_t	bufflen;
+	int		nlindex;
+	int		bufflen;
+	char	*str;
 
 	if (!buff)
 		return (NULL);
-	index = ft_hasnewline(buff);
+	nlindex = ft_hasnewline(buff);
 	bufflen = ft_strlen(buff);
-	if (index == -1 || ((int)bufflen == index + 1))
+	if (nlindex == -1 || bufflen == nlindex + 1)
 	{
-		return (free(buff), NULL);
+		free(buff);
+		return (NULL);
 	}
-	buff = ft_substr(buff, index + 1, bufflen - (index + 1));
-	return (buff);
+	str = ft_substr(buff, nlindex + 1, bufflen - (nlindex + 1));
+	return (str);
 }
 
 char	*get_next_line(int fd)
@@ -75,23 +79,13 @@ char	*get_next_line(int fd)
 		if (!str)
 			return (NULL);
 		read_val = read(fd, str, BUFFER_SIZE);
-		if (read_val <= 0)
+		if (read_val < 1)
 			break ;
 		str[read_val] = '\0';
 		buff = ft_strjoin(buff, str);
-		free(str);
 	}
-	next_line = fixline(buff);
+	free(str);
+	next_line = fix_line(buff);
 	buff = fix_buff(buff);
 	return (next_line);
 }
-
-// int	main(void)
-// {
-// 	int	fd;
-
-// 	fd = open("text.txt", O_RDWR, 777);
-// 	printf("1: %s\n", get_next_line(fd));
-// 	printf("2: %s\n", get_next_line(fd));
-// 	printf("3: %s\n", get_next_line(fd));
-// }

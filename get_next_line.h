@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:11:42 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/11/27 11:57:14 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/04 14:21:36 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <string.h>
 
 char	*get_next_line(int fd);
-size_t	ft_strlen(const char *str);
+int		ft_strlen(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
