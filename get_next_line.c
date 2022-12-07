@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:08 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/05 18:32:05 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/07 19:51:08 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*fix_line(char *buff)
 	if (ft_hasnewline(buff) == -1)
 		return (buff);
 	nlindex = ft_hasnewline(buff);
-	line = (char *)malloc(nlindex + 2);
+	line = (char *)malloc(nlindex + 1);
 	if (!line)
 		return (NULL);
 	ft_memmove(line, buff, nlindex);
@@ -66,7 +66,7 @@ char	*fix_buff(char *buff)
 
 char	*get_next_line(int fd)
 {
-	static char	*buff;
+	static char	*buff;  
 	char		*str;
 	char		*next_line;
 	int			read_val;
@@ -83,8 +83,8 @@ char	*get_next_line(int fd)
 			break ;
 		str[read_val] = '\0';
 		buff = ft_strjoin(buff, str);
+		free(str);
 	}
-	free(str);
 	next_line = fix_line(buff);
 	buff = fix_buff(buff);
 	return (next_line);

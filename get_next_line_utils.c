@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:11 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/05 16:00:14 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/07 19:35:31 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strlen(const char *str)
 	return (length);
 }
 
-static char	*stralloc(size_t start, size_t strlen, size_t len)
+static char	*str_alloc(size_t start, size_t strlen, size_t len)
 {
 	char	*str;
 
@@ -52,7 +52,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	strlen = ft_strlen(s);
 	if (len > strlen)
 		len = strlen;
-	str = stralloc(start, strlen, len);
+	str = str_alloc(start, strlen, len);
 	if (!str)
 		return (NULL);
 	if (start < strlen)
@@ -64,6 +64,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		}
 	}
 	str[count] = '\0';
+	free((char *)s);
 	return (str);
 }
 
@@ -89,6 +90,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		count++;
 	}
 	str[count] = '\0';
+	free((char *)s1);
 	return (str);
 }
 
