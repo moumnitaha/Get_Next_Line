@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:08 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/07 19:51:08 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:18:42 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*fix_line(char *buff)
 	if (!buff)
 		return (NULL);
 	if (ft_hasnewline(buff) == -1)
-		return (buff);
+		return (ft_strdup(buff));
 	nlindex = ft_hasnewline(buff);
 	line = (char *)malloc(nlindex + 1);
 	if (!line)
@@ -45,7 +45,7 @@ char	*fix_line(char *buff)
 	return (line);
 }
 
-char	*fix_buff(char *buff)
+char	*trim_buff(char *buff)
 {
 	int		nlindex;
 	int		bufflen;
@@ -56,17 +56,14 @@ char	*fix_buff(char *buff)
 	nlindex = ft_hasnewline(buff);
 	bufflen = ft_strlen(buff);
 	if (nlindex == -1 || bufflen == nlindex + 1)
-	{
-		free(buff);
-		return (NULL);
-	}
+		return (free(buff), NULL);
 	str = ft_substr(buff, nlindex + 1, bufflen - (nlindex + 1));
 	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buff;  
+	static char	*buff;
 	char		*str;
 	char		*next_line;
 	int			read_val;
@@ -80,12 +77,15 @@ char	*get_next_line(int fd)
 			return (NULL);
 		read_val = read(fd, str, BUFFER_SIZE);
 		if (read_val < 1)
+		{
+			free(str);
 			break ;
+		}
 		str[read_val] = '\0';
 		buff = ft_strjoin(buff, str);
 		free(str);
 	}
 	next_line = fix_line(buff);
-	buff = fix_buff(buff);
+	buff = trim_buff(buff);
 	return (next_line);
 }

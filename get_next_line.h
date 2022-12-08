@@ -6,13 +6,16 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:11:42 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/07 20:00:57 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/08 18:08:43 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>

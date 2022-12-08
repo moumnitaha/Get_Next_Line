@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:11 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/07 19:35:31 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/08 18:18:28 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,22 @@ int	ft_strlen(const char *str)
 	return (length);
 }
 
-static char	*str_alloc(size_t start, size_t strlen, size_t len)
+char	*ft_strdup(const char *s)
 {
-	char	*str;
+	char	*ptr;
+	int		count;
 
-	if (start <= strlen)
+	count = 0;
+	ptr = (char *)malloc((ft_strlen((char *)s) + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	while (count < ft_strlen((char *)s))
 	{
-		if (len <= strlen - start)
-			str = (char *)malloc((len + 1) * sizeof(char));
-		else
-			str = (char *)malloc((strlen - start + 1) * sizeof(char));
+		ptr[count] = s[count];
+		count++;
 	}
-	else
-		str = (char *)malloc(sizeof(char));
-	return (str);
+	ptr[count] = '\0';
+	return (ptr);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -47,12 +49,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	strlen;
 
 	if (!s)
-		return (NULL);
+		return (ft_strdup(""));
 	count = 0;
 	strlen = ft_strlen(s);
 	if (len > strlen)
 		len = strlen;
-	str = str_alloc(start, strlen, len);
+	str = (char *)malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	if (start < strlen)
