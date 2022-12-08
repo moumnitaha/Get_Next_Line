@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:08 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/08 19:31:45 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/08 19:52:10 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_hasnewline(char *str)
 	return (-1);
 }
 
-char	*fix_line(char *buff)
+char	*handle_line(char *buff)
 {
 	char	*line;
 	int		nlindex;
@@ -85,7 +85,7 @@ char	*get_next_line(int fd)
 		buff = ft_strjoin(buff, str);
 		free(str);
 	}
-	next_line = fix_line(buff);
+	next_line = handle_line(buff);
 	buff = trim_buff(buff);
 	return (next_line);
 }
