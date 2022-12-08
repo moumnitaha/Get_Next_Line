@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:08 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/08 17:18:42 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/08 19:31:45 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*fix_line(char *buff)
 	if (ft_hasnewline(buff) == -1)
 		return (ft_strdup(buff));
 	nlindex = ft_hasnewline(buff);
-	line = (char *)malloc(nlindex + 1);
+	line = (char *)malloc(nlindex + 2);
 	if (!line)
 		return (NULL);
 	ft_memmove(line, buff, nlindex);
