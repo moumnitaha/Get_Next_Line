@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:08 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/08 19:52:10 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/08 20:15:59 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int	ft_hasnewline(char *str)
 	return (-1);
 }
 
-char	*handle_line(char *buff)
+char	*handle_line(char *buff, int read_val)
 {
 	char	*line;
 	int		nlindex;
 
-	if (!buff)
+	if (!buff || read_val == -1)
 		return (NULL);
 	if (ft_hasnewline(buff) == -1)
 		return (ft_strdup(buff));
@@ -72,7 +72,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (ft_hasnewline(buff) == -1)
 	{
-		str = (char *)malloc(BUFFER_SIZE * sizeof(char));
+		str = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!str)
 			return (NULL);
 		read_val = read(fd, str, BUFFER_SIZE);
@@ -85,7 +85,7 @@ char	*get_next_line(int fd)
 		buff = ft_strjoin(buff, str);
 		free(str);
 	}
-	next_line = handle_line(buff);
+	next_line = handle_line(buff, read_val);
 	buff = trim_buff(buff);
 	return (next_line);
 }
