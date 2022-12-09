@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:11 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/09 12:25:14 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/09 12:42:09 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		count++;
 	}
 	str[count] = '\0';
-	free((void *)s1);
-	return (str);
+	return (free((void *)s1), str);
 }
