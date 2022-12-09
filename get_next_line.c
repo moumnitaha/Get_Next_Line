@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:08 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/08 20:15:59 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/09 09:55:50 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ char	*handle_line(char *buff, int read_val)
 {
 	char	*line;
 	int		nlindex;
+	int		count;
 
+	count = 0;
 	if (!buff || read_val == -1)
 		return (NULL);
 	if (ft_hasnewline(buff) == -1)
@@ -39,9 +41,13 @@ char	*handle_line(char *buff, int read_val)
 	line = (char *)malloc(nlindex + 2);
 	if (!line)
 		return (NULL);
-	ft_memmove(line, buff, nlindex);
-	line[nlindex] = '\n';
-	line[nlindex + 1] = '\0';
+	while (count < nlindex)
+	{
+		line[count] = buff[count];
+		count++;
+	}
+	line[count] = '\n';
+	line[count + 1] = '\0';
 	return (line);
 }
 
