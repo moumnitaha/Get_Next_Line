@@ -6,7 +6,7 @@
 /*   By: tmoumni <tmoumni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:12:08 by tmoumni           #+#    #+#             */
-/*   Updated: 2022/12/09 09:55:50 by tmoumni          ###   ########.fr       */
+/*   Updated: 2022/12/09 12:13:49 by tmoumni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_hasnewline(char *str)
 	if (!str)
 		return (-1);
 	index = 0;
-	while (str[index] != '\0' && str[index] != '\n')
+	while (str[index] && str[index] != '\n')
 		index++;
 	if (str[index] == '\n')
 		return (index);
@@ -55,16 +55,24 @@ char	*trim_buff(char *buff)
 {
 	int		nlindex;
 	int		bufflen;
+	int		count;
 	char	*str;
 
 	if (!buff)
 		return (NULL);
+	count = 0;
 	nlindex = ft_hasnewline(buff);
 	bufflen = ft_strlen(buff);
 	if (nlindex == -1 || bufflen == nlindex + 1)
 		return (free(buff), NULL);
-	str = ft_substr(buff, nlindex + 1, bufflen - (nlindex + 1));
-	return (str);
+	str = (char *)malloc(bufflen - nlindex + 1);
+	while (count < bufflen - nlindex)
+	{
+		str[count] = buff[nlindex + 1 + count];
+		count++;
+	}
+	str[count] = '\0';
+	return (free(buff), str);
 }
 
 char	*get_next_line(int fd)
@@ -78,7 +86,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (ft_hasnewline(buff) == -1)
 	{
-		str = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+		str = (char *)malloc(BUFFER_SIZE + 1);
 		if (!str)
 			return (NULL);
 		read_val = read(fd, str, BUFFER_SIZE);
